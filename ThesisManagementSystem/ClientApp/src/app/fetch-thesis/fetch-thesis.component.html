@@ -1,0 +1,65 @@
+<h1>Thesis List</h1>
+
+<p *ngIf="!theses"><em>Loading...</em></p>
+
+<div>
+    <button class="btn btn-primary" [routerLink]="['/add-thesis']">
+        <span><i class="fa fa-user-plus" aria-hidden="true"></i></span> Add New
+        Thesis
+    </button>
+</div>
+
+
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Thesis Year</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let thesis of theses">
+            <td>{{ thesis.thesisId }}</td>
+            <td>{{ shortenText( thesis.title) }}</td>
+            <td>{{ thesis.thesisYear }}</td>
+            <td>{{ thesis.authorPerson.personName }}</td>
+            <td></td>
+            <td>
+                <button class="btn btn-outline-dark"
+                        [routerLink]="['/fetch-thesisSubject', thesis.thesisId]">
+                    <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                    Subjects
+                </button>
+                &nbsp;
+                <button class="btn btn-outline-dark"
+                        [routerLink]="['/fetch-thesisKeyword', thesis.thesisId]">
+                    <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                    Keywords
+                </button>
+                &nbsp;
+                <button class="btn btn-outline-dark"
+                        [routerLink]="['/thesis/edit/', thesis.thesisId]">
+                    <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                    Edit
+                </button>
+                &nbsp;
+                <button class="btn btn-outline-danger"
+                        (click)="delete(thesis.thesisId)">
+                    <span><i class="fa fa-trash" aria-hidden="true"></i></span>
+                    Delete
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<div>
+    <button class="btn btn-primary" (click)="searchThesis(keyword)">
+        <span><i class="fa fa-user-plus" aria-hidden="true" ></i></span> Search Thesis
+    </button>
+    &nbsp;
+    <input [(ngModel)]="keyword" style="width:415px" />
+</div>

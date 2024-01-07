@@ -1,0 +1,44 @@
+<h1>Thesis Keyword List</h1>
+
+<p *ngIf="!thesisKeywords"><em>Loading...</em></p>
+
+<div>
+    <button class="btn btn-primary" [routerLink]="['/add-thesisKeyword',{ thesisId: thesisId }]">
+        <span><i class="fa fa-user-plus" aria-hidden="true"></i></span> Add New
+        Thesis Keyword
+    </button>
+    &nbsp;
+    <button class="btn btn-primary" [routerLink]="['']">
+        <span><i class="fa fa-user-plus" aria-hidden="true"></i></span> Thesis List
+    </button>
+</div>
+
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Keyword</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let thesisKeyword of thesisKeywords">
+            <td>{{ thesisKeyword.keywordId }}</td>
+            <td>{{ thesisKeyword.keyword }}</td>
+            <td></td>
+            <td>
+                <button class="btn btn-outline-dark"
+                        [routerLink]="['/thesisKeyword/edit/', thesisKeyword.keywordId,{ thesisId: thesisId }]">
+                    <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                    Edit
+                </button>
+                &nbsp;
+                <button class="btn btn-outline-danger"
+                        (click)="delete(thesisKeyword.keywordId)">
+                    <span><i class="fa fa-trash" aria-hidden="true"></i></span>
+                    Delete
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

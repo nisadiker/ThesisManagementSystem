@@ -1,0 +1,28 @@
+<h1>{{ title }}</h1>
+<h3>University</h3>
+<hr />
+
+<form [formGroup]="universityForm" (ngSubmit)="save()">
+    
+
+    <div class="form-group row">
+        <label class="control-label col-md-12">University Name</label>
+        <div class="col-md-4">
+            <input formControlName="universityName" style="width:415px"/>
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.universityName.touched || submitted) &&
+        registerFormControl.universityName.errors?.required
+      ">
+            University Name is required.
+        </span>
+    </div>
+
+
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        &nbsp;
+        <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+    </div>
+</form>

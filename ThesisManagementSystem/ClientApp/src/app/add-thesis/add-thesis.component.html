@@ -1,0 +1,190 @@
+<h1>{{ title }}</h1>
+<h3>Thesis</h3>
+<hr />
+
+<form [formGroup]="thesisForm" (ngSubmit)="save()">
+
+
+    <div class="form-group row">
+        <label class="control-label col-md-12">Title</label>
+        <div class="col-md-4">
+            <textarea ng-model="myTextarea" formControlName="title" style="width:415px;height:60px"></textarea>
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.title.touched || submitted) &&
+        registerFormControl.title.errors?.required
+      ">
+            Title is required.
+        </span>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12">Abstract</label>
+        <div class="col-md-4">
+            <textarea ng-model="myTextarea" formControlName="abstract" style="width:415px;height:160px"></textarea>
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.abstract.touched || submitted) &&
+        registerFormControl.abstract.errors?.required
+      ">
+            Abstract is required.
+        </span>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12">Thesis Year</label>
+        <div class="col-md-4">
+            <input type="number" ng-pattern="/^\d{4}$/" formControlName="thesisYear" style="width:415px" />
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.thesisYear.touched || submitted) &&
+        registerFormControl.thesisYear.errors?.required
+      ">
+            Thesis Year is required.
+        </span>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12" for="thesisType">Thesis Type</label>
+        <div class="col-md-4">
+            <select class="form-control" data-val="true" formControlName="thesisType">
+                <option value="">-- Select Thesis Type --</option>
+                <option value="Master">Master</option>
+                <option value="Doctorate">Doctorate</option>
+                <option value="Specialization in Medicine">Specialization in Medicine</option>
+                <option value="Proficiency in Art">Proficiency in Art</option>
+            </select>
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.thesisType.touched || submitted) &&
+        registerFormControl.thesisType.errors?.required
+      ">
+            Thesis Type is required
+        </span>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12">Number Of Pages</label>
+        <div class="col-md-4">
+            <input type="number" formControlName="numberOfPages" style="width:415px" />
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.numberOfPages.touched || submitted) &&
+        registerFormControl.numberOfPages.errors?.required
+      ">
+            Number Of Pages is required.
+        </span>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12" for="thesisLanguage">Thesis Language</label>
+        <div class="col-md-4">
+            <select class="form-control" data-val="true" formControlName="thesisLanguage">
+                <option value="">-- Select Thesis Language --</option>
+                <option value="Turkish">Turkish</option>
+                <option value="English">English</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+            </select>
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.thesisLanguage.touched || submitted) &&
+        registerFormControl.thesisLanguage.errors?.required
+      ">
+            Thesis Language is required
+        </span>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12" for="authorId">Author</label>
+        <div class="col-md-4">
+            <select class="form-control" data-val="true" formControlName="authorId">
+                <option value="">-- Select Author --</option>
+                <option *ngFor="let person of persons" value="{{ person.personId }}">{{ person.personName }}</option>
+            </select>
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.authorId.touched || submitted) &&
+        registerFormControl.authorId.errors?.required
+      ">
+            Author is required
+        </span>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12" for="supervisorId">Supervisor</label>
+        <div class="col-md-4">
+            <select class="form-control" data-val="true" formControlName="supervisorId">
+                <option value="">-- Select Supervisor --</option>
+                <option *ngFor="let person of persons" value="{{ person.personId }}">{{ person.personName }}</option>
+            </select>
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.supervisorId.touched || submitted) &&
+        registerFormControl.supervisorId.errors?.required
+      ">
+            Supervisor is required
+        </span>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12" for="cosupervisorId">Cosupervisor</label>
+        <div class="col-md-4">
+            <select class="form-control" data-val="true" formControlName="cosupervisorId">
+                <option value="">-- Select Cosupervisor --</option>
+                <option *ngFor="let person of persons" value="{{ person.personId }}">{{ person.personName }}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12" for="universityId">University</label>
+        <div class="col-md-4">
+            <select class="form-control" data-val="true" formControlName="universityId" (change)="onUniversitySelectChange($event)">
+                <option value="">-- Select University --</option>
+                <option *ngFor="let university of universities" value="{{ university.universityId }}">{{ university.universityName }}</option>
+            </select>
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.universityId.touched || submitted) &&
+        registerFormControl.universityId.errors?.required
+      ">
+            University is required
+        </span>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12" for="instituteId">Institute</label>
+        <div class="col-md-4">
+            <select class="form-control" data-val="true" formControlName="instituteId">
+                <option value="">-- Select Institute --</option>
+                <option *ngFor="let institute of institutes" value="{{ institute.instituteId }}">{{ institute.instituteName }}</option>
+            </select>
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.instituteId.touched || submitted) &&
+        registerFormControl.instituteId.errors?.required
+      ">
+            Institute is required
+        </span>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">Submission Date</label>
+        <div class="col-md-4">
+            <input class="form-control" type="date" formControlName="submissionDate" />
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.submissionDate.touched || submitted) &&
+        registerFormControl.submissionDate.errors?.required
+      ">
+            Submission Date is required.
+        </span>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        &nbsp;
+        <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+    </div>
+</form>

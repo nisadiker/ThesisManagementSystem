@@ -1,0 +1,43 @@
+<h1>{{ title }}</h1>
+<h3>Institute</h3>
+<hr />
+
+<form [formGroup]="instituteForm" (ngSubmit)="save()">
+
+    <div class="form-group row">
+        <label class="control-label col-md-12" for="universityId">University</label>
+        <div class="col-md-4">
+            <select class="form-control" data-val="true" formControlName="universityId">
+                <option value="">-- Select University --</option>
+                <option *ngFor="let university of universities" value="{{ university.universityId }}">{{ university.universityName }}</option>
+            </select>
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.universityId.touched || submitted) &&
+        registerFormControl.universityId.errors?.required
+      ">
+            University is required
+        </span>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12">Institute Name</label>
+        <div class="col-md-4">
+            <input formControlName="instituteName" style="width:415px" />
+        </div>
+        <span class="text-danger" *ngIf="
+        (registerFormControl.instituteName.touched || submitted) &&
+        registerFormControl.instituteName.errors?.required
+      ">
+            Institute Name is required.
+        </span>
+    </div>
+
+
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        &nbsp;
+        <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+    </div>
+</form>
